@@ -43,9 +43,9 @@
 
 ## 安装
 
-- 拉取镜像: `docker pull classmatelin/scripts:v2`
+- 拉取镜像: `docker pull classmatelin/scripts_v2:latest`
 - 创建容器: `docker run -itd --name scripts_v2 classmatelin/scripts_v2:latest`
-- 进入容器: `docker exec -it scripts bash`
+- 进入容器: `docker exec -it scripts_v2 bash`
 
 ## 使用
 
