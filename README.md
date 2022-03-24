@@ -1,5 +1,13 @@
 # scripts_v2
 
+基于Go语言开发的自动化脚本合集:
+
+   - 采用模块化开发, 可扩展性高, 可用于二次开发。
+   - 支持自动更新和自动编译脚本。
+   - 支持docker一键部署, 用户可自定义crontab任务。
+   - 支持某东脚本并发执行。
+   - 目前仅有jd的几个脚本, 后续会持续增加一些脚本。
+
 ## 目录说明
 ```text
 ├── Dockerfile  //  docker build
@@ -99,6 +107,52 @@
 - `go/src/scripts`目录下的*.bin结尾的文件均为可执行文件。
 - 例如: `./jd_check_cookies.bin`执行检测cookies。
 
+### 开发脚本
+
+在scripts/jd目录下建立`JdHello.go`:
+- 文件头cron可设置定时任务执行时间:
+```go
+// @Description: Jd Hello
+// @Cron: 0 4 * * *
+```
+- 定义struct:
+
+```
+type JdHello struct {
+	structs.JdBase
+	client *resty.Request
+}
+
+// 定义New方法并且返回constracts.Jd
+func (JdFanLi) New(user jd.User) constracts.Jd {
+	obj := JdFanLi{}
+	return obj
+}
+
+// GetTitle
+// @description: 返回脚本名称
+// @receiver : j
+// @return: interface{}
+func (j JdFanLi) GetTitle() interface{} {
+	return "Jd hello"
+}
+
+// 该方法是脚本入口, 脚本逻辑必须在这里调用
+func (j JdFanLi) Exec() {
+    fmt.Println("hello world")
+}
+
+
+// 使用RunJd批量执行即可
+func main() {
+	structs.RunJd(JdFanLi{}, jd.UserList)
+}
+
+```
+
+
+    
+  
 
 ### 其他
 
